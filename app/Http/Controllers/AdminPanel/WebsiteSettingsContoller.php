@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\AdminPanel;
 
 use App\Http\Traits\ResponseTrait;
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller as Controller;
 use App\Actions\WebsiteSettings\showWebsiteSettingsAction;
 use App\Actions\WebsiteSettings\UpdateWebsiteSettingsAction;
 use App\Http\Requests\WebisteSettingsRequest;

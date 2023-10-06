@@ -5,7 +5,7 @@ namespace App\Http\Controllers\AdminPanel;
 use App\Http\Traits\ResponseTrait;
 use App\Models\feedback;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller as Controller;
 use App\Actions\FeedBack\showFeedBackAction;
 use App\Actions\FeedBack\CreateFeedBackAction;
 use App\Actions\FeedBack\DeleteFeedBackAction;

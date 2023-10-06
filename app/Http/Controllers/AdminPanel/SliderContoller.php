@@ -5,7 +5,7 @@ namespace App\Http\Controllers\AdminPanel;
 use App\Http\Traits\ResponseTrait;
 use App\Models\slider;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller as Controller;
 use App\Actions\Slider\showSliderAction;
 use App\Actions\Slider\CreateSliderAction;
 use App\Actions\Slider\DeleteSliderAction;

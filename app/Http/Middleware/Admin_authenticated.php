@@ -15,11 +15,18 @@ class Admin_authenticated
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        if (!auth('admin')->check()) {
-            return $this->returnErrorNotAuthenticate('401', 'Unauthenticated');
+        if($request->is('api/*')){
+            if (!auth('admin')->check()) {
+                return $this->returnErrorNotAuthenticate('401', 'Unauthenticated');
+            }
+            return $next($request);
+        }else{
+            if (!auth('admin')->check()) {
+                return redirect()->route('admin.login')->with('error','Unauthenticated');
+            }
+            return $next($request);
         }
-        return $next($request);
     }
 }

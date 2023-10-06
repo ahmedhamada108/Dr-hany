@@ -5,7 +5,7 @@ namespace App\Http\Controllers\AdminPanel;
 use App\Http\Traits\ResponseTrait;
 use App\Models\gallery;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller as Controller;
 use App\Actions\Gallery\showGalleryAction;
 use App\Actions\Gallery\CreateGalleryAction;
 use App\Actions\Gallery\DeleteGalleryAction;

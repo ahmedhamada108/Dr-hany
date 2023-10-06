@@ -5,7 +5,7 @@ namespace App\Http\Controllers\AdminPanel;
 use App\Http\Traits\ResponseTrait;
 use App\Models\Specialties_Surgeries;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller as Controller;
 use App\Actions\Specialties_Surgeries\showSpecialties_SurgeriesAction;
 use App\Actions\Specialties_Surgeries\CreateSpecialties_SurgeriesAction;
 use App\Actions\Specialties_Surgeries\DeleteSpecialties_SurgeriesAction;

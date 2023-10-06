@@ -5,7 +5,7 @@ namespace App\Http\Controllers\AdminPanel;
 use App\Http\Traits\ResponseTrait;
 use App\Models\medical_services;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller as Controller;
 use App\Actions\Medical_Services\showMedical_ServicesAction;
 use App\Actions\Medical_Services\CreateMedical_ServicesAction;
 use App\Actions\Medical_Services\DeleteMedical_ServicesAction;

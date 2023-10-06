@@ -5,12 +5,12 @@ namespace App\Http\Controllers\AdminPanel;
 use App\Http\Traits\ResponseTrait;
 use App\Models\slider;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Actions\Awards\showAwardsAction;
 use App\Actions\Awards\CreateAwardsAction;
 use App\Actions\Awards\DeleteAwardsAction;
 use App\Actions\Awards\UpdateAwardsAction;
 use App\Http\Requests\AwardsRequest;
+use Illuminate\Routing\Controller as Controller;
 
 class AwardsContoller extends Controller
 {
