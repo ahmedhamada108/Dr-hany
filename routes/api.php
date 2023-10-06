@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminPanel\FeedBackContoller;
 use App\Http\Controllers\AdminPanel\WebsiteSettingsContoller;
 use App\Http\Controllers\AdminPanel\Medical_ServicesContoller;
 use App\Http\Controllers\AdminPanel\Specialties_SurgeriesContoller;
+use App\Http\Controllers\WebsiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +47,4 @@ Route::group(['middleware' => 'admin_authenticated'], function () {
     Route::put('/website_settings',[WebsiteSettingsContoller::class,'update']);
 
 });
+Route::get('/website',[WebsiteController::class,'index']);

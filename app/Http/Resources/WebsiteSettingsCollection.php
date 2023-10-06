@@ -34,7 +34,7 @@ class WebsiteSettingsCollection extends JsonResource
             'linkedin' => $this->linkedin,
             'instagram' => $this->instagram,
             'tiktok' => $this->tiktok,
-
+            
         ];
 
     }
