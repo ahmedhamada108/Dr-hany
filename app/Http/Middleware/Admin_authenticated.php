@@ -19,12 +19,13 @@ class Admin_authenticated
     {
         if($request->is('api/*')){
             if (!auth('admin')->check()) {
-                return $this->returnErrorNotAuthenticate('401', 'Unauthenticated');
+                return $this->returnErrorNotAuthenticate('401', 'البيانات خاطئة');
             }
             return $next($request);
         }else{
-            if (!auth('admin')->check()) {
-                return redirect()->route('admin.login')->with('error','Unauthenticated');
+            if (!auth('web')->guest()) {
+                auth('web')->logout();
+                return redirect()->route('admin.login')->with('error','البيانات خاطئة');
             }
             return $next($request);
         }

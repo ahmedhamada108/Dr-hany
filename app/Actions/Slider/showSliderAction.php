@@ -10,10 +10,13 @@ use Illuminate\Support\Facades\Auth;
 class showSliderAction
 {
     use ResponseTrait;
-    public function execute()
+    public function execute($isApi = false)
     {
-        $slider = slider::paginate(5);
-        return $this->returnDataPaginated('Data',SliderCollection::collection($slider));
+        $sliders = slider::paginate(5);
+        if ($isApi) {
+            return $this->returnDataPaginated('Data',SliderCollection::collection($sliders));
+        }
+        return $sliders = SliderCollection::collection($sliders);
     }
 
 }

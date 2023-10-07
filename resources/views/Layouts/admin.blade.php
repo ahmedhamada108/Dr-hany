@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>لوحة التحكم | دكتور هاني موريس</title>
+	<title>لوحة التحكم | دكتور هاني</title>
 	<!-- core:css -->
 	<link rel="stylesheet" href="{{ URL::asset('assets/vendors/core/core.css') }}">
 	<!-- endinject -->
@@ -27,7 +27,7 @@
 		<nav class="sidebar">
       <div class="sidebar-header">
         <a href="#" class="sidebar-brand">
-          دكتور <span>هاني موريس</span>
+          دكتور <span> هاني </span>
         </a>
         <div class="sidebar-toggler not-active">
           <span></span>
@@ -39,12 +39,19 @@
         <ul class="nav">
           <li class="nav-item nav-category">رئيسية</li>
           <li class="nav-item">
-            <a href="dashboard-one.html" class="nav-link">
+            <a href="{{ route('admin.dashboard') }}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">لوحة التحكم</span>
             </a>
 		</li>
+			<li class="nav-item nav-category">ادارات</li>
+			<li class="nav-item">
+			<a href="{{ route('slider.index') }}" class="nav-link">
+				<i class="link-icon" data-feather="box"></i>
+				<span class="link-title">ادارة الصور</span>
+			</a>
         </ul>
+		  </li>
       </div>
     </nav>
 		<div class="page-wrapper">	

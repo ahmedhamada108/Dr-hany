@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminPanel\LoginController;
+use App\Http\Controllers\AdminPanel\SliderContoller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +23,8 @@ Route::group(['middleware' => 'admin_authenticated'], function () {
     Route::get('/admin/dashboard', function () {
         return view('AdminPanel.dashboard');
     })->name('admin.dashboard');
-
     Route::get('/admin/logout',[LoginController::class,'logout'])->name('admin.logout');
+
+    Route::resource('/admin/slider', SliderContoller::class)->except(['show','create','edit']);
 
 });

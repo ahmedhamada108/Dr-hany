@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('awards', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('title');
-            $table->string('image_path');
+            $table->string('image_path')->nullable();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent();
         });

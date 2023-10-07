@@ -10,6 +10,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class admins extends Authenticatable implements JWTSubject
 {
     use HasFactory;
+    
     protected $table= 'admins';
     protected $fillable = [
         'id',

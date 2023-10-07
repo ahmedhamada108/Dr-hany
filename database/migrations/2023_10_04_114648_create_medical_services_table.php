@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('id', true);
             $table->string('title');
             $table->string('description');
-            $table->string('video_path');
+            $table->string('video_path')->nullable();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent();
         });

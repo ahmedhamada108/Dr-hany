@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('sub_title');
             $table->string('description');
-            $table->string('image_path');
+            $table->string('image_path')->nullable();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent();
         });

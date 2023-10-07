@@ -19,14 +19,29 @@ class LoginController extends Controller
     {
         $credentials = $request->only('email', 'password');
         $token = $adminLogin->execute($credentials, $request->is('api/*'));
+        $Admin = auth('admin')->user();
         if($request->is('api/*')){
-            $Admin = auth('admin')->user();
-            $Admin->token = $token;
-            return $this->returnData('Data', $Admin);
+            if($Admin){
+                $Admin->token = $token;
+                return $this->returnData('Data', $Admin);
+            }else{
+                return $this->returnErrorNotAuthenticate('401', 'البيانات خاطئة');
+            }
+        }else{
+            if($Admin){
+                auth('admin')->login($Admin);
+                return redirect()->route('admin.dashboard');
+            }else{
+                return redirect()->route('admin.login')->with('error','البيانات خاطئة');
+            }
         }
-        
-        return redirect()->route('admin.dashboard');
     }
+    public function logout()
+    {
+        auth('web')->logout();
+        return redirect()->route('admin.login');
+    }
+
 
 }
 

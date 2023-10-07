@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('id', true);
             $table->string('Patient_Name');
             $table->string('Feedback');
-            $table->string('image_path');
+            $table->string('image_path')->nullable();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->useCurrent();
         });
