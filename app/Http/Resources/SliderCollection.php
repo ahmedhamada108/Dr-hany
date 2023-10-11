@@ -17,7 +17,7 @@ class SliderCollection extends JsonResource
             'title' => $this->title,
             'sub_title' => $this->sub_title,
             'description' => $this->description,
-            'image_path' => $this->image_path,
+            'image_path' => asset('storage/' . $this->image_path),
         ];
 
     }

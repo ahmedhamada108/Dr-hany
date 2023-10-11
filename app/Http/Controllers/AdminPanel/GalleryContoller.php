@@ -32,7 +32,12 @@ class GalleryContoller extends Controller
     public function index()
     {
         //
-        return $this->showGalleryAction->execute();
+        if(request()->expectsJson()){
+            return $this->showGalleryAction->execute(true);
+        }else{
+            $gallery = $this->showGalleryAction->execute();
+            return view('AdminPanel.gallery_management',compact('gallery'));
+        }
     }
 
     /**
@@ -40,9 +45,15 @@ class GalleryContoller extends Controller
      */
     public function store(GalleryRequest $galleryRequest,CreateGalleryAction $createGalleryAction)
     {
-        $data = $galleryRequest->validated();
-        $createGalleryAction->execute($galleryRequest,$data);
-        return $this->returnSuccessMessage('تم اضافة الصورة بنجاح');
+        if(request()->expectsJson()){
+            $data = $galleryRequest->validated();
+            $createGalleryAction->execute($galleryRequest,$data);
+            return $this->returnSuccessMessage('تم اضافة الصورة بنجاح');
+        }else{
+            $data = $galleryRequest->validated();
+            $createGalleryAction->execute($galleryRequest,$data);
+            return redirect()->route('gallery.index')->with('success','تم اضافة الصورة بنجاح');
+        }
     }
 
     /**
@@ -50,9 +61,15 @@ class GalleryContoller extends Controller
      */
     public function update($id, GalleryRequest $galleryRequest,UpdateGalleryAction $updateGalleryAction)
     {
-        $data = $galleryRequest->validated();
-        $updateGalleryAction->execute($id ,$data);
-        return $this->returnSuccessMessage('تم تعديل الصورة بنجاح');
+        if(request()->expectsJson()){
+            $data = $galleryRequest->validated();
+            $updateGalleryAction->execute($id ,$data);
+            return $this->returnSuccessMessage('تم تعديل الصورة بنجاح');
+        }else{
+            $data = $galleryRequest->validated();
+            $updateGalleryAction->execute($id ,$data);
+            return redirect()->route('gallery.index')->with('success','تم تعديل الصورة بنجاح');
+        }
     }
 
     /**
@@ -60,8 +77,13 @@ class GalleryContoller extends Controller
      */
     public function destroy($id, DeleteGalleryAction $deleteGalleryAction)
     {
-        $deleteGalleryAction->execute($id);
-        return $this->returnSuccessMessage('تم حذف الصورة بنجاح');
+        if(request()->expectsJson()){
+            $deleteGalleryAction->execute($id);
+            return $this->returnSuccessMessage('تم حذف الصورة بنجاح');
+        }else{
+            $deleteGalleryAction->execute($id);
+            return redirect()->route('gallery.index')->with('success','تم حذف الصورة بنجاح');
+        }
     }
 
 }

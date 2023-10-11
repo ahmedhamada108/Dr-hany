@@ -19,13 +19,12 @@ class Admin_authenticated
     {
         if($request->is('api/*')){
             if (!auth('admin')->check()) {
-                return $this->returnErrorNotAuthenticate('401', 'البيانات خاطئة');
+                return $this->returnErrorNotAuthenticate('401', 'يجب عليك تسجيل الدخول اولا');
             }
             return $next($request);
         }else{
-            if (!auth('web')->guest()) {
-                auth('web')->logout();
-                return redirect()->route('admin.login')->with('error','البيانات خاطئة');
+            if (!auth('admins')->check()) {
+                return redirect()->route('admin.login')->with('error','يجب عليك تسجيل الدخول اولا');
             }
             return $next($request);
         }

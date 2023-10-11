@@ -21,17 +21,17 @@ class Medical_ServicesRequest extends FormRequest
      */
     public function rules()
     {
-        if($this->method() == 'PUT' || $this->method() == 'PATCH'){
+        if ($this->method() == 'PUT' || $this->method() == 'PATCH') {
             return [
-                'title'=> 'required',
-                'description'=> 'required',
-                'video_path' => 'file|mimetypes:video/avi,video/mpeg,video/mp4,video/quicktime|max:10240', // Adjust the allowed formats and maximum file size
+                'title' => 'required',
+                'description' => 'required',
+                'video_path' => 'sometimes|nullable|file|max:80240', // Adjust the allowed formats and maximum file size (e.g., 10 MB)
             ];
-        }else{
+        } else {
             return [
-                'title'=> 'required',
-                'description'=> 'required',
-                'video_path' => 'required|file|mimetypes:video/avi,video/mpeg,video/mp4,video/quicktime|max:10240', // Adjust the allowed formats and maximum file size
+                'title' => 'required',
+                'description' => 'required',
+                'video_path' => 'required|file|max:80240', // Adjust the allowed formats and maximum file size (e.g., 10 MB)
             ];
         }
     }

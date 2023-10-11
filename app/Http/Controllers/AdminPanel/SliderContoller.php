@@ -46,9 +46,15 @@ class SliderContoller extends Controller
      */
     public function store(SliderRequest $sliderRequest,CreateSliderAction $createSliderAction)
     {
-        $data = $sliderRequest->validated();
-        $createSliderAction->execute($sliderRequest,$data);
-        return $this->returnSuccessMessage('تم اضافة الصورة بنجاح');
+        if(request()->expectsJson()){
+            $data = $sliderRequest->validated();
+            $createSliderAction->execute($sliderRequest,$data);
+            return $this->returnSuccessMessage('تم اضافة الصورة بنجاح');
+        }else{
+            $data = $sliderRequest->validated();
+            $createSliderAction->execute($sliderRequest,$data);
+            return redirect()->route('slider.index')->with('success','تم اضافة الصورة بنجاح');
+        }
     }
 
     /**

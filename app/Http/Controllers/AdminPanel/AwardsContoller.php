@@ -33,7 +33,12 @@ class AwardsContoller extends Controller
     public function index()
     {
         //
-        return $this->showAwardsAction->execute();
+        if(request()->expectsJson()){
+            return $this->showAwardsAction->execute(true);
+        }else{
+            $awards = $this->showAwardsAction->execute();
+            return view('AdminPanel.Awards_management',compact('awards'));
+        }
     }
 
     /**
@@ -41,9 +46,15 @@ class AwardsContoller extends Controller
      */
     public function store(AwardsRequest $awardsRequest,CreateAwardsAction $createAwardsAction)
     {
-        $data = $awardsRequest->validated();
-        $createAwardsAction->execute($awardsRequest,$data);
-        return $this->returnSuccessMessage('تم اضافة الصورة بنجاح');
+        if(request()->expectsJson()){
+            $data = $awardsRequest->validated();
+            $createAwardsAction->execute($awardsRequest,$data);
+            return $this->returnSuccessMessage('تم اضافة الصورة بنجاح');
+        }else{
+            $data = $awardsRequest->validated();
+            $createAwardsAction->execute($awardsRequest,$data);
+            return redirect()->route('awards.index')->with('success','تم اضافة الصورة بنجاح');
+        }
     }
 
     /**
@@ -51,9 +62,15 @@ class AwardsContoller extends Controller
      */
     public function update($id, AwardsRequest $awardsRequest,UpdateAwardsAction $updateAwardsAction)
     {
-        $data = $awardsRequest->validated();
-        $updateAwardsAction->execute($id ,$data);
-        return $this->returnSuccessMessage('تم تعديل الصورة بنجاح');
+        if(request()->expectsJson()){
+            $data = $awardsRequest->validated();
+            $updateAwardsAction->execute($id ,$data);
+            return $this->returnSuccessMessage('تم تعديل الصورة بنجاح');
+        }else{
+            $data = $awardsRequest->validated();
+            $updateAwardsAction->execute($id ,$data);
+            return redirect()->route('awards.index')->with('success','تم تعديل الصورة بنجاح');
+        }
     }
 
     /**
@@ -61,8 +78,13 @@ class AwardsContoller extends Controller
      */
     public function destroy($id, DeleteAwardsAction $deleteAwardsAction)
     {
-        $deleteAwardsAction->execute($id);
-        return $this->returnSuccessMessage('تم حذف الصورة بنجاح');
+        if(request()->expectsJson()){
+            $deleteAwardsAction->execute($id);
+            return $this->returnSuccessMessage('تم حذف الصورة بنجاح');
+        }else{
+            $deleteAwardsAction->execute($id);
+            return redirect()->route('awards.index')->with('success','تم حذف الصورة بنجاح');
+        }
     }
 
 }

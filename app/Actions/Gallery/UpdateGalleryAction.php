@@ -16,9 +16,14 @@ class UpdateGalleryAction
         if (isset($data['image_path'])) {
             File::delete(storage_path('app/public/'.$image_path));        
             $imagePath = $data['image_path']->store('images/gallery', 'public');
+            $data['image_path'] = $imagePath;
+            $gallery->update($data);
+            return $gallery;
+        }else{
+            unset($data['image_path']);
+            $gallery->update($data);
+            return $gallery;
         }
-        $gallery->update($data);
-        return $gallery;
     }
 }
 

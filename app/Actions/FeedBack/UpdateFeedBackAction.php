@@ -16,9 +16,14 @@ class UpdateFeedBackAction
         if (isset($data['image_path'])) {
             File::delete(storage_path('app/public/'.$image_path));        
             $imagePath = $data['image_path']->store('images/feedback', 'public');
+            $data['image_path'] = $imagePath;
+            $feedback->update($data);
+            return $feedback;
+        }else{
+            unset($data['image_path']);
+            $feedback->update($data);
+            return $feedback;
         }
-        $feedback->update($data);
-        return $feedback;
     }
 }
 

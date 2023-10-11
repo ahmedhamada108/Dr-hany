@@ -15,9 +15,9 @@ class Medical_ServicesCollection extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'sub_title' => $this->sub_title,
             'description' => $this->description,
-            'video_path' => $this->video_path,
+            'video_path' => asset('storage/' . $this->video_path),
+
         ];
 
     }

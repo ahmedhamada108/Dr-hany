@@ -24,7 +24,7 @@ class GalleryRequest extends FormRequest
         if($this->method() == 'PUT' || $this->method() == 'PATCH'){
             return [
                 'title'=> 'required',
-                'image_path'=> 'image|mimes:jpeg,png,jpg,gif|max:8048', // Adjust validation rules for image
+                'image_path'=> 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:8048', // Adjust validation rules for image
             ];
         }else{
             return [

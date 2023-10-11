@@ -10,10 +10,14 @@ use Illuminate\Support\Facades\Auth;
 class showGalleryAction
 {
     use ResponseTrait;
-    public function execute()
+    public function execute($isApi = false)
     {
         $gallery = gallery::paginate(5);
-        return $this->returnDataPaginated('Data',GalleryCollection::collection($gallery));
+        if($isApi){
+            return $this->returnDataPaginated('Data',GalleryCollection::collection($gallery));
+        }else{
+            return $gallery =GalleryCollection::collection($gallery);
+        }
     }
 
 }

@@ -31,8 +31,12 @@ class FeedBackContoller extends Controller
      */
     public function index()
     {
-        //
-        return $this->showFeedBackAction->execute();
+        if(request()->expectsJson()){
+            return $this->showFeedBackAction->execute(true);
+        }else{
+            $feedback = $this->showFeedBackAction->execute();
+            return view('AdminPanel.FeedBack_management',compact('feedback'));
+        }
     }
 
     /**
@@ -40,9 +44,15 @@ class FeedBackContoller extends Controller
      */
     public function store(FeedBackRequest $feedbackRequest,CreateFeedBackAction $createFeedBackAction)
     {
-        $data = $feedbackRequest->validated();
-        $createFeedBackAction->execute($feedbackRequest,$data);
-        return $this->returnSuccessMessage('تم اضافة الصورة بنجاح');
+        if(request()->expectsJson()){
+            $data = $feedbackRequest->validated();
+            $createFeedBackAction->execute($feedbackRequest,$data);
+            return $this->returnSuccessMessage('تم اضافة الصورة بنجاح');
+        }else{
+            $data = $feedbackRequest->validated();
+            $createFeedBackAction->execute($feedbackRequest,$data);
+            return redirect()->route('feedback.index')->with('success','تم اضافة الصورة بنجاح');
+        }
     }
 
     /**
@@ -50,9 +60,15 @@ class FeedBackContoller extends Controller
      */
     public function update($id, FeedBackRequest $feedbackRequest,UpdateFeedBackAction $updateFeedBackAction)
     {
-        $data = $feedbackRequest->validated();
-        $updateFeedBackAction->execute($id ,$data);
-        return $this->returnSuccessMessage('تم تعديل الصورة بنجاح');
+        if(request()->expectsJson()){
+            $data = $feedbackRequest->validated();
+            $updateFeedBackAction->execute($id ,$data);
+            return $this->returnSuccessMessage('تم تعديل الصورة بنجاح');
+        }else{
+            $data = $feedbackRequest->validated();
+            $updateFeedBackAction->execute($id ,$data);
+            return redirect()->route('feedback.index')->with('success','تم تعديل الصورة بنجاح');
+        }
     }
 
     /**
@@ -60,8 +76,13 @@ class FeedBackContoller extends Controller
      */
     public function destroy($id, DeleteFeedBackAction $deleteFeedBackAction)
     {
-        $deleteFeedBackAction->execute($id);
-        return $this->returnSuccessMessage('تم حذف الصورة بنجاح');
+        if(request()->expectsJson()){
+            $deleteFeedBackAction->execute($id);
+            return $this->returnSuccessMessage('تم حذف الصورة بنجاح');
+        }else{
+            $deleteFeedBackAction->execute($id);
+            return redirect()->route('feedback.index')->with('success','تم حذف الصورة بنجاح');
+        }
     }
 
 }

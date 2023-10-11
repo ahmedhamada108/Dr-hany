@@ -1,8 +1,6 @@
 <?php
 
-use Faker\Provider\Medical;
-use Illuminate\Http\Request;
-use Illuminate\Auth\Events\Login;
+use App\Http\Controllers\AdminPanel\AdminsContoller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminPanel\AwardsContoller;
 use App\Http\Controllers\AdminPanel\LoginController;
@@ -42,7 +40,7 @@ Route::group(['middleware' => 'admin_authenticated'], function () {
     Route::apiResource('gallery',GalleryContoller::class);
     Route::apiResource('medical_services',Medical_ServicesContoller::class);
     Route::apiResource('feedback',FeedBackContoller::class);
-
+    Route::apiResource('admins',AdminsContoller::class);
     Route::get('/website_settings',[WebsiteSettingsContoller::class,'index']);
     Route::put('/website_settings',[WebsiteSettingsContoller::class,'update']);
 

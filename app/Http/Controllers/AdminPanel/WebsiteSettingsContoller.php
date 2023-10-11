@@ -24,7 +24,13 @@ class WebsiteSettingsContoller extends Controller
     public function index()
     {
         //
-        return $this->showWebsiteSettingsAction->execute();
+        if(request()->expectsJson()){
+            return $this->showWebsiteSettingsAction->execute(true);
+        }else{
+            $settings = $this->showWebsiteSettingsAction->execute();
+            // return $settings;
+            return view('AdminPanel.website_settings',compact('settings'));
+        }
     }
 
     /**
@@ -32,9 +38,15 @@ class WebsiteSettingsContoller extends Controller
      */
     public function update(WebisteSettingsRequest $webisteSettingsRequest,UpdateWebsiteSettingsAction $updateWebsiteSettingsAction)
     {
-        $data = $webisteSettingsRequest->validated();
-        $updateWebsiteSettingsAction->execute($data);
-        return $this->returnSuccessMessage('تم تعديل البيانات بنجاح');
+        if(request()->expectsJson()){
+            $data = $webisteSettingsRequest->validated();
+            $updateWebsiteSettingsAction->execute($data);
+            return $this->returnSuccessMessage('تم تعديل البيانات بنجاح');
+        }else{
+            $data = $webisteSettingsRequest->validated();
+            $updateWebsiteSettingsAction->execute($data);
+            return redirect()->route('website_settings.index')->with('success','تم تعديل البيانات بنجاح');
+        }
     }
 
 }

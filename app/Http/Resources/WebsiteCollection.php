@@ -38,31 +38,32 @@ class WebsiteCollection extends JsonResource
         $websiteSettings = $website->first(); // Assuming you want the first item in the collection
 
         return [
-            'slider' => $slider_data,
+            'slider' => SliderCollection::collection($slider_data),
             'about_us' => [
                 'about_us_part1' => $websiteSettings->about_us_part1,
                 'about_us_part2' => $websiteSettings->about_us_part2,
-                'image_path' => $websiteSettings->image_path,
-                'awards' => $awards,
+                'image_path' => asset('storage/' . $websiteSettings->image_path),
+                'awards' => AwardsCollection::collection($awards),
             ],
             'specilties_surgeries' => $specialties_surgeries,
-            'gallery' =>$gallery,
-            'medical_services' => $medical_services,
+            'gallery' =>GalleryCollection::collection($gallery),
+            'medical_services' => Medical_ServicesCollection::collection($medical_services),
             'statistics' => [
                 'patient_number' => $websiteSettings->patient_number,
                 'surgeries_number' => $websiteSettings->surgeries_number,
                 'visitors_number' => $websiteSettings->visitors_number,
             ],
-            'feedback' => $feedback,
+            'feedback' => FeedBackCollection::collection($feedback),
             'contact_us'=>[
                 'address' => $websiteSettings->address,
                 'map_url' => $websiteSettings->map_url,
-                'image_path_map' => $websiteSettings->image_path_map,
+                'image_path_map' => asset('storage/' . $websiteSettings->image_path_map),
                 'phone' => $websiteSettings->phone,
                 'mobile' => $websiteSettings->mobile,
                 'email' => $websiteSettings->email,
             ],
             'footer' =>[
+                'slogan' => $websiteSettings->slogan,
                 'content_footer' => $websiteSettings->content_footer,
                 'terms_of_use' => $websiteSettings->terms_of_use,
                 'privacy_policy' => $websiteSettings->privacy_policy,

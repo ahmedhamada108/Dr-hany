@@ -16,7 +16,7 @@ class FeedBackCollection extends JsonResource
             'id' => $this->id,
             'Patient_Name' => $this->name,
             'Feedback' => $this->feedback,
-            'image_path' => $this->image_path,
+            'image_path' => asset('storage/' . $this->image_path),
         ];
 
     }

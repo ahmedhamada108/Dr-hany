@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GalleryCollection extends JsonResource
+class AdminsCollection extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -14,8 +14,8 @@ class GalleryCollection extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'image_path' => asset('storage/' . $this->image_path),
+            'name' =>$this->name,
+            'email' =>$this->email
         ];
 
     }

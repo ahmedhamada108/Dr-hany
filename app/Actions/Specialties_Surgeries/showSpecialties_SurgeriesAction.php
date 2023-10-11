@@ -10,10 +10,14 @@ use Illuminate\Support\Facades\Auth;
 class showSpecialties_SurgeriesAction
 {
     use ResponseTrait;
-    public function execute()
+    public function execute($isApi = false)
     {
         $Specialties_Surgeries = Specialties_Surgeries::paginate(5);
-        return $this->returnDataPaginated('Data',Specialties_SurgeriesCollection::collection($Specialties_Surgeries));
+        if($isApi){
+            return $this->returnDataPaginated('Data',Specialties_SurgeriesCollection::collection($Specialties_Surgeries));
+        }else{
+            return $Specialties_Surgeries =Specialties_SurgeriesCollection::collection($Specialties_Surgeries);
+        }
     }
 
 }

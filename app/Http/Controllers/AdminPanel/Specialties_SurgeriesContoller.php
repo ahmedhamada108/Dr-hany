@@ -32,7 +32,12 @@ class Specialties_SurgeriesContoller extends Controller
     public function index()
     {
         //
-        return $this->showSpecialties_SurgeriesAction->execute();
+        if(request()->expectsJson()){
+            return $this->showSpecialties_SurgeriesAction->execute(true);
+        }else{
+            $Specialties_Surgeries = $this->showSpecialties_SurgeriesAction->execute();
+            return view('AdminPanel.Specialties_Surgeries_management',compact('Specialties_Surgeries'));
+        }
     }
 
     /**
@@ -40,9 +45,15 @@ class Specialties_SurgeriesContoller extends Controller
      */
     public function store(Specialties_SurgeriesRequest $Specialties_SurgeriesRequest,CreateSpecialties_SurgeriesAction $createSpecialties_SurgeriesAction)
     {
-        $data = $Specialties_SurgeriesRequest->validated();
-        $createSpecialties_SurgeriesAction->execute($Specialties_SurgeriesRequest,$data);
-        return $this->returnSuccessMessage('تم اضافة الصورة بنجاح');
+        if(request()->expectsJson()){
+            $data = $Specialties_SurgeriesRequest->validated();
+            $createSpecialties_SurgeriesAction->execute($Specialties_SurgeriesRequest,$data);
+            return $this->returnSuccessMessage('تم اضافة الصورة بنجاح');
+        }else{
+            $data = $Specialties_SurgeriesRequest->validated();
+            $createSpecialties_SurgeriesAction->execute($Specialties_SurgeriesRequest,$data);
+            return redirect()->route('Specialties_Surgeries.index')->with('success','تم اضافة الصورة بنجاح');
+        }
     }
 
     /**
@@ -50,9 +61,15 @@ class Specialties_SurgeriesContoller extends Controller
      */
     public function update($id, Specialties_SurgeriesRequest $Specialties_SurgeriesRequest,UpdateSpecialties_SurgeriesAction $updateSpecialties_SurgeriesAction)
     {
-        $data = $Specialties_SurgeriesRequest->validated();
-        $updateSpecialties_SurgeriesAction->execute($id ,$data);
-        return $this->returnSuccessMessage('تم تعديل الصورة بنجاح');
+        if(request()->expectsJson()){
+            $data = $Specialties_SurgeriesRequest->validated();
+            $updateSpecialties_SurgeriesAction->execute($id ,$data);
+            return $this->returnSuccessMessage('تم تعديل الصورة بنجاح');
+        }else{
+            $data = $Specialties_SurgeriesRequest->validated();
+            $updateSpecialties_SurgeriesAction->execute($id ,$data);
+            return redirect()->route('Specialties_Surgeries.index')->with('success','تم تعديل الصورة بنجاح');
+        }
     }
 
     /**
@@ -60,8 +77,13 @@ class Specialties_SurgeriesContoller extends Controller
      */
     public function destroy($id, DeleteSpecialties_SurgeriesAction $deleteSpecialties_SurgeriesAction)
     {
-        $deleteSpecialties_SurgeriesAction->execute($id);
-        return $this->returnSuccessMessage('تم حذف الصورة بنجاح');
+        if(request()->expectsJson()){
+            $deleteSpecialties_SurgeriesAction->execute($id);
+            return $this->returnSuccessMessage('تم حذف الصورة بنجاح');
+        }else{
+            $deleteSpecialties_SurgeriesAction->execute($id);
+            return redirect()->route('Specialties_Surgeries.index')->with('success','تم حذف الصورة بنجاح');
+        }
     }
 
 }

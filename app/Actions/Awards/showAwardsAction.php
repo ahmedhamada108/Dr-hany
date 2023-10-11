@@ -10,12 +10,17 @@ use Illuminate\Support\Facades\Auth;
 class showAwardsAction
 {
     use ResponseTrait;
-    public function execute()
+    public function execute($isApi = false)
     {
         $awards = awards::paginate(5);
-        return $this->returnDataPaginated('Data',AwardsCollection::collection($awards));
+        if($isApi){
+            return $this->returnDataPaginated('Data',AwardsCollection::collection($awards));
+        }else{
+            return $awards =AwardsCollection::collection($awards);
+        }
     }
 
 }
-    ?>
+
+?>
 

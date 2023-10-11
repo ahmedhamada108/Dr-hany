@@ -11,14 +11,12 @@ class UpdateSliderAction
 
     public function execute($id,array $data)
     {
-        
         $slider = slider::find($id);
         $image_path = $slider->image_path;
         if (isset($data['image_path'])) {
             File::delete(storage_path('app/public/'.$image_path));        
             $imagePath = $data['image_path']->store('images/slider', 'public');
             $data['image_path'] = $imagePath;
-            // return $data;
             $slider->update($data);
             return $slider;
         }else{

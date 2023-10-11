@@ -16,7 +16,7 @@ class Specialties_SurgeriesCollection extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'image_path' => $this->image_path,
+            'image_path' => asset('storage/' . $this->image_path),
         ];
 
     }

@@ -15,6 +15,7 @@ class WebsiteSettingsCollection extends JsonResource
         return [
             'id' => $this->id,
             'slogan' => $this->slogan,
+            'image_path' => asset('storage/' . $this->image_path),
             'about_us_part1' => $this->about_us_part1,
             'about_us_part2' => $this->about_us_part2,
             'patient_number' => $this->patient_number,
@@ -22,7 +23,7 @@ class WebsiteSettingsCollection extends JsonResource
             'visitors_number' => $this->visitors_number,
             'address' => $this->address,
             'map_url' => $this->map_url,
-            'image_path_map' => $this->image_path_map,
+            'image_path_map' => asset('storage/' . $this->image_path_map),
             'phone' => $this->phone,
             'mobile' => $this->mobile,
             'email' => $this->email,

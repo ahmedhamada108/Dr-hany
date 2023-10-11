@@ -12,6 +12,7 @@ class website_settings extends Model
     protected $fillable = [
         'id',
         'slogan',
+        'image_path',
         'about_us_part1',
         'about_us_part2',
         'patient_number',
@@ -30,6 +31,7 @@ class website_settings extends Model
         'facebook',
         'linkedin',
         'instagram',
+        'tiktok',
         'created_at',
         'updated_at'
     ];

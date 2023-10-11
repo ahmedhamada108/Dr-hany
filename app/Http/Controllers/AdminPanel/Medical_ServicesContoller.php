@@ -32,7 +32,12 @@ class Medical_ServicesContoller extends Controller
     public function index()
     {
         //
-        return $this->showMedical_ServicesAction->execute();
+        if(request()->expectsJson()){
+            return $this->showMedical_ServicesAction->execute(true);
+        }else{
+            $medical_services = $this->showMedical_ServicesAction->execute();
+            return view('AdminPanel.medical_services_management',compact('medical_services'));
+        }
     }
 
     /**
@@ -40,19 +45,30 @@ class Medical_ServicesContoller extends Controller
      */
     public function store(Medical_ServicesRequest $medical_servicesRequest,CreateMedical_ServicesAction $createMedical_ServicesAction)
     {
-        $data = $medical_servicesRequest->validated();
-        $createMedical_ServicesAction->execute($medical_servicesRequest,$data);
-        return $this->returnSuccessMessage('تم اضافة الصورة بنجاح');
+        if(request()->expectsJson()){
+            $data = $medical_servicesRequest->validated();
+            $createMedical_ServicesAction->execute($medical_servicesRequest,$data);
+            return $this->returnSuccessMessage('تم اضافة الصورة بنجاح');
+        }else{
+            $data = $medical_servicesRequest->validated();
+            $createMedical_ServicesAction->execute($medical_servicesRequest,$data);
+            return redirect()->route('medical_services.index')->with('success','تم اضافة الصورة بنجاح');
+        }
     }
-
     /**
      * Update the specified resource in storage.
      */
     public function update($id, Medical_ServicesRequest $medical_servicesRequest,UpdateMedical_ServicesAction $updateMedical_ServicesAction)
     {
-        $data = $medical_servicesRequest->validated();
-        $updateMedical_ServicesAction->execute($id ,$data);
-        return $this->returnSuccessMessage('تم تعديل الصورة بنجاح');
+        if(request()->expectsJson()){
+            $data = $medical_servicesRequest->validated();
+            $updateMedical_ServicesAction->execute($id ,$data);
+            return $this->returnSuccessMessage('تم تعديل الصورة بنجاح');
+        }else{
+            $data = $medical_servicesRequest->validated();
+            $updateMedical_ServicesAction->execute($id ,$data);
+            return redirect()->route('medical_services.index')->with('success','تم تعديل الصورة بنجاح');
+        }
     }
 
     /**
@@ -60,8 +76,13 @@ class Medical_ServicesContoller extends Controller
      */
     public function destroy($id, DeleteMedical_ServicesAction $deleteMedical_ServicesAction)
     {
-        $deleteMedical_ServicesAction->execute($id);
-        return $this->returnSuccessMessage('تم حذف الصورة بنجاح');
+        if(request()->expectsJson()){
+            $deleteMedical_ServicesAction->execute($id);
+            return $this->returnSuccessMessage('تم حذف الصورة بنجاح');
+        }else{
+            $deleteMedical_ServicesAction->execute($id);
+            return redirect()->route('medical_services.index')->with('success','تم حذف الصورة بنجاح');
+        }
     }
 
 }

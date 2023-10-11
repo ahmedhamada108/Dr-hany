@@ -38,18 +38,63 @@
       <div class="sidebar-body">
         <ul class="nav">
           <li class="nav-item nav-category">رئيسية</li>
-          <li class="nav-item">
+          <li class="nav-item" style="padding-top: 10px;">
             <a href="{{ route('admin.dashboard') }}" class="nav-link">
-              <i class="link-icon" data-feather="box"></i>
+				<i class="fa-solid fa-gauge-high"></i>
               <span class="link-title">لوحة التحكم</span>
             </a>
 		</li>
 			<li class="nav-item nav-category">ادارات</li>
-			<li class="nav-item">
-			<a href="{{ route('slider.index') }}" class="nav-link">
-				<i class="link-icon" data-feather="box"></i>
-				<span class="link-title">ادارة الصور</span>
-			</a>
+			<li class="nav-item" style="padding-top: 10px;">
+				<a href="{{ route('slider.index') }}" class="nav-link">
+					<i class="link-icon" data-feather="image"></i>
+					<span class="link-title">ادارة الصور</span>
+				</a>
+			</li>
+			<li class="nav-item" style="padding-top: 10px;">
+				<a href="{{ route('awards.index') }}" class="nav-link">
+					<i class="link-icon" data-feather="award"></i>
+					<span class="link-title">ادارة الجوائز</span>
+				</a>
+			</li>
+			<li class="nav-item" style="padding-top: 10px;">
+				<a href="{{ route('medical_services.index') }}" class="nav-link">
+					<i class="fa-solid fa-suitcase-medical"></i>
+					<span class="link-title">ادارة الخدمات الطبية</span>
+				</a>
+			</li>
+			<li class="nav-item" style="padding-top: 10px;">
+				<a href="{{ route('Specialties_Surgeries.index') }}" class="nav-link">
+					<i class="fa-solid fa-heart-pulse"></i>					
+					<span class="link-title">ادارة التخصصات والجراحات</span>
+				</a>
+			</li>
+			<li class="nav-item" style="padding-top: 10px;">
+				<a href="{{ route('gallery.index') }}" class="nav-link">
+					<i class="fa-regular fa-images"></i>					
+					<span class="link-title">ادارة معرض الصور</span>
+				</a>
+			</li>
+			<li class="nav-item" style="padding-top: 10px;">
+				<a href="{{ route('feedback.index') }}" class="nav-link">
+					<i class="fa-solid fa-comments"></i>
+					<span class="link-title">ادارة راي العملاء</span>
+				</a>
+			</li>
+			<li class="nav-item" style="padding-top: 10px;">
+				<a href="{{ route('admins.index') }}" class="nav-link">
+					<i class="fa-solid fa-users-gear"></i>
+					<span class="link-title">ادارة المسؤولين</span>
+				</a>
+			</li>
+			<li class="nav-item nav-category">ادارة الموقع</li>
+
+			<li class="nav-item" style="padding-top: 10px;">
+				<a href="{{ route('website_settings.index') }}" class="nav-link">
+					<i class="fa-solid fa-gears"></i>
+					<span class="link-title">ادارة اعدادات الموقع</span>
+				</a>
+			</li>
         </ul>
 		  </li>
       </div>
@@ -72,34 +117,23 @@
 										<img src="https://via.placeholder.com/80x80" alt="">
 									</div>
 									<div class="info text-center">
-										<p class="name font-weight-bold mb-0">Amiah Burton</p>
-										<p class="email text-muted mb-3">amiahburton@gmail.com</p>
+										<p class="name font-weight-bold mb-0">{{auth('admins')->user()->name}}</p>
+										<p class="email text-muted mb-3">{{ auth('admins')->user()->email }}</p>
 									</div>
 								</div>
-								<div class="dropdown-body">
+								<div class="dropdown-body" >
 									<ul class="profile-nav p-0 pt-3">
 										<li class="nav-item">
-											<a href="pages/general/profile.html" class="nav-link">
-												<i data-feather="user"></i>
-												<span>Profile</span>
+											<a style="cursor: pointer;padding: 0px !important;" class="dropdown-item" data-toggle="modal" data-target="#exampleModaledit{{ auth('admins')->id() }}" data-whatever="@mdo">
+												<i class="fa-solid fa-user-pen"></i>											
+												 تعديل 
+											</a>
 											</a>
 										</li>
 										<li class="nav-item">
-											<a href="javascript:;" class="nav-link">
-												<i data-feather="edit"></i>
-												<span>Edit Profile</span>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a href="javascript:;" class="nav-link">
-												<i data-feather="repeat"></i>
-												<span>Switch User</span>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a href="javascript:;" class="nav-link">
-												<i data-feather="log-out"></i>
-												<span>Log Out</span>
+											<a  href="{{ route('admin.logout') }}" class="nav-link">
+												<i class="fa-solid fa-arrow-right-from-bracket"></i>
+												<span> تسجيل خروج </span>
 											</a>
 										</li>
 									</ul>
@@ -109,6 +143,46 @@
 					</ul>
 				</div>
 			</nav>
+                {{-- Start Modal Editing the admin --}}
+				<div class="modal fade" id="exampleModaledit{{ auth('admins')->id() }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">تعديل الحساب</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						</div>
+						<div class="modal-body">
+						<form action="{{ route('admins.update',auth('admins')->id() ) }}" method="post">
+							@csrf
+							@method('PUT')
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">اسم الحساب:</label>
+								<input type="text" name="name" class="form-control" id="recipient-name" value="{{ auth('admins')->user()->name }}">
+								</div>
+								<div class="form-group">
+									<label for="recipient-name" class="col-form-label">البريد الالكتروني:</label>
+									<input type="email" name="email" class="form-control" id="recipient-name" value="{{ auth('admins')->user()->email }}">
+								</div>
+								<div class="form-group">
+									<label for="recipient-name" class="col-form-label">كلمة المرور:</label>
+									<input type="password" name="password" class="form-control" id="recipient-name">
+								</div>
+								<div class="form-group">
+									<label for="recipient-name" class="col-form-label">تاكيد كلمة المرور:</label>
+									<input type="password" name="password_confirmation" class="form-control" id="recipient-name">
+								</div>
+						</div>
+						<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+						<button type="submit" class="btn btn-primary">حفظ البيانات</button>
+						</div>
+					</form>
+					</div>
+					</div>
+				</div>
+		{{-- Finish Modal Editing the image --}}
 			<!-- partial -->
             @yield('content')
 
@@ -139,6 +213,7 @@
   <!-- custom js for this page -->
   <script src="{{ URL::asset('assets/js/dashboard.js') }}"></script>
   <script src="{{ URL::asset('assets/js/datepicker.js') }}"></script>
+  <script src="https://kit.fontawesome.com/cb2611cb8b.js" crossorigin="anonymous"></script>
 	<!-- end custom js for this page -->
 </body>
 </html>    

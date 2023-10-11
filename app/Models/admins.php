@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class admins extends Authenticatable implements JWTSubject
+class admins extends Authenticatable implements JWTSubject 
 {
     use HasFactory;
     

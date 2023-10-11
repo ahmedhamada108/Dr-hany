@@ -12,10 +12,12 @@ class AwardsCollection extends JsonResource
      */
     public function toArray($request)
     {
+        $isApiRequest = $request->expectsJson();
+
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'image_path' => $this->image_path,
+            'image_path' => asset('storage/' . $this->image_path),
         ];
 
     }

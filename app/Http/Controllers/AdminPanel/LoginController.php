@@ -6,6 +6,9 @@ use App\Actions\Admin\LoginAction;
 use Illuminate\Routing\Controller as Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Traits\ResponseTrait;
+use App\Models\feedback;
+use App\Models\medical_services;
+use App\Models\Specialties_Surgeries;
 
 class LoginController extends Controller
 {
@@ -29,7 +32,7 @@ class LoginController extends Controller
             }
         }else{
             if($Admin){
-                auth('admin')->login($Admin);
+                auth('admins')->login($Admin);
                 return redirect()->route('admin.dashboard');
             }else{
                 return redirect()->route('admin.login')->with('error','البيانات خاطئة');
@@ -38,8 +41,15 @@ class LoginController extends Controller
     }
     public function logout()
     {
-        auth('web')->logout();
+        auth('admins')->logout();
         return redirect()->route('admin.login');
+    }
+    public function Dashboard()
+    {
+        $specialties_surgery = Specialties_Surgeries::count();
+        $medical_services = medical_services::count();
+        $Feedback = feedback::count();
+        return view('AdminPanel.dashboard',compact(['specialties_surgery','medical_services','Feedback']));
     }
 
 

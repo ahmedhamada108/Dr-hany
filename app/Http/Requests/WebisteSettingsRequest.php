@@ -19,35 +19,42 @@ class WebisteSettingsRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules()
+    public function rules(): array
     {
-        return [
-            'slogan'=> 'required',
-            'about_us_part1'=> 'required',
-            'about_us_part2'=> 'required',
-            'patient_number'=> 'required',
-            'surgeries_number'=> 'required',
-            'visitors_number'=> 'required',
-            'address'=> 'required',
-            'map_url'=> 'required',
-            'image_path_map'=> 'image|mimes:jpeg,png,jpg,gif|max:8048', // Adjust validation rules for image
-            'phone'=> 'required',
-            'mobile'=> 'required',
-            'email'=> 'required | email',
-            'content_footer'=> 'required',
-            'terms_of_use'=> 'required',
-            'privacy_policy'=> 'required',
-            'whatsapp'=> 'required',
-            'facebook'=> 'required',
-            'linkedin'=> 'required',
-            'instagram'=> 'required',
-            'tiktok'=> 'required',
-        ];
+        if($this->method() == 'PUT' || $this->method() == 'PATCH'){
+            return [
+                'slogan'=> 'required',
+                'image_path'=> 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:8048',           
+                'about_us_part1'=> 'required',
+                'about_us_part2'=> 'required',
+                'patient_number'=> 'required',
+                'surgeries_number'=> 'required',
+                'visitors_number'=> 'required',
+                'address'=> 'required',
+                'map_url'=> 'required',
+                'image_path_map'=> 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:8048',    
+                'phone'=> 'required',
+                'mobile'=> 'required',
+                'email'=> 'required | email',
+                'content_footer'=> 'required',
+                'terms_of_use'=> 'required',
+                'privacy_policy'=> 'required',
+                'whatsapp'=> 'required',
+                'facebook'=> 'required',
+                'linkedin'=> 'required',
+                'instagram'=> 'required',
+                'tiktok'=> 'required',
+            ];
+        }
     }
     public function messages()
     {
         return [
             'slogan.required' => 'الشعار مطلوب',
+            'image_path.image' => 'يجب ان يكون الملف ملف صورة',
+            'image_path.mimes' => 'يجب ان يكون الملف من نوع jpeg,png,jpg,gif',
+            'image_path.max' => 'يجب ان يكون حجم الملف اقل من 8048 كيلوبايت',
+            'image_path.required' => 'الصورة مطلوبة ',
             'about_us_part1.required' => 'المحتوي الكتابي الخاص بمن نحن مطلوب',
             'about_us_part2.required' => 'المحتوي الكتابي الخاص بمن نحن مطلوب',
             'patient_number.required' => 'عدد المرضي مطلوب',

@@ -25,7 +25,7 @@ class FeedBackRequest extends FormRequest
             return [
                 'Patient_Name'=> 'required',
                 'Feedback'=> 'required',
-                'image_path'=> 'image|mimes:jpeg,png,jpg,gif|max:8048', // Adjust validation rules for image
+                'image_path'=> 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:8048', // Adjust validation rules for image
             ];
         }else{
             return [

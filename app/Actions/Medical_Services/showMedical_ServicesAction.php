@@ -10,10 +10,14 @@ use Illuminate\Support\Facades\Auth;
 class showMedical_ServicesAction
 {
     use ResponseTrait;
-    public function execute()
+    public function execute($isApi = false)
     {
         $medical_services = medical_services::paginate(5);
-        return $this->returnDataPaginated('Data',Medical_ServicesCollection::collection($medical_services));
+        if($isApi){
+            return $this->returnDataPaginated('Data',Medical_ServicesCollection::collection($medical_services));
+        }else{
+            return $medical_services =Medical_ServicesCollection::collection($medical_services);
+        }
     }
 
 }

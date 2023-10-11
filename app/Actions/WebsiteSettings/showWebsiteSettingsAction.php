@@ -10,10 +10,14 @@ use Illuminate\Support\Facades\Auth;
 class showWebsiteSettingsAction
 {
     use ResponseTrait;
-    public function execute()
+    public function execute($isApi = false)
     {
         $website_settings = website_settings::all();
-        return $this->returnData('Data',WebsiteSettingsCollection::collection($website_settings));
+        if($isApi){
+            return $this->returnData('Data',WebsiteSettingsCollection::collection($website_settings));
+        }else{
+            return $website_settings =WebsiteSettingsCollection::collection($website_settings);
+        }
     }
 
 }

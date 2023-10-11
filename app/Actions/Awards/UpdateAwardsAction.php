@@ -16,9 +16,14 @@ class UpdateAwardsAction
         if (isset($data['image_path'])) {
             File::delete(storage_path('app/public/'.$image_path));        
             $imagePath = $data['image_path']->store('images/awards', 'public');
+            $data['image_path'] = $imagePath;
+            $awards->update($data);
+            return $awards;
+        }else{
+            unset($data['image_path']);
+            $awards->update($data);
+            return $awards;
         }
-        $awards->update($data);
-        return $awards;
     }
 }
 
