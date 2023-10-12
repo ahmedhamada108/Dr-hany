@@ -30,7 +30,7 @@ use App\Http\Controllers\WebsiteController;
 
 
 Route::post('/login',[LoginController::class,'login']);
-Route::group(['middleware' => 'admin_authenticated'], function () {
+Route::group(['middleware' => ['admin_authenticated','set_json_accept_header']], function () {
     
     Route::apiResource('slider',SliderContoller::class);
 
