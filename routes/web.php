@@ -41,5 +41,10 @@ Route::group(['middleware' => 'admin_authenticated'], function () {
     Route::resource('/admin/website_settings', WebsiteSettingsContoller::class)->except(['show','create','edit']);
 
     Route::resource('/admin/admins', AdminsContoller::class)->except(['show','create','edit']);
+
     Route::resource('/admin/website_settings', WebsiteSettingsContoller::class)->except(['store','show','create','edit']);
+});
+
+Route::get('/',function(){
+    return view('Emails.ContactFormMail');
 });

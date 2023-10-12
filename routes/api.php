@@ -46,3 +46,5 @@ Route::group(['middleware' => 'admin_authenticated'], function () {
 
 });
 Route::get('/website',[WebsiteController::class,'index']);
+
+Route::post('/contact_us',[WebsiteController::class,'contactUs']);
